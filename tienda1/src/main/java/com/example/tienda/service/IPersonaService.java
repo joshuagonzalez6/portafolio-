@@ -1,6 +1,14 @@
 
 package com.example.tienda.service;
 
-public class IPersonaService {
-    
+import com.example.tienda.entity.Persona;
+import java.util.List;
+
+public interface IPersonaService {
+    public List<Persona> getAllPersona();
+    public Persona getPersonaById (long id);
+    public void savePersona(Persona persona);
+    public void delete (long id);
+
+    public void savePersona(long idPersona);
 }
