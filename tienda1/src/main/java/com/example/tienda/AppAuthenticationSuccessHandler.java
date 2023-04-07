@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 
     
  public class AppAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
+ @Override
  protected void handle(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
     }

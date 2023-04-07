@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,13 +38,13 @@ public class SecurityConfig  extends WebSecurityConfigureAdpter{
 }
 @Bean
 public AuthenticationSuccessHandler appAuthenticationSuccessHandler() {
-    return new AppAunthenticationSuccessHandler ();
+    return new AppAuthenticationSuccessHandler();
 }
 public SecurityConfig(UserService userPrincipalDetailsService){
         this.UserDetailsService = userPrincipalDetailsService;
 }
  @Override 
- protected void condigure (AuthenticationMangerBuilder auth) {
+ protected void configure (AuthenticationManagerBuilder auth) {
      auth.authenticationProvider(authenticationProvider());
  }
  
@@ -56,7 +57,15 @@ public SecurityConfig(UserService userPrincipalDetailsService){
              .hasAnyRole("USER","VENDEDOR" ,"ADMIN")
              .anyRequest().authenticated()
              .and()
-             .formLogin();
-}
+             .formLogin()
+             .loginPage("/login").permitAll().defaultSuccessUrl("/persona",true).and().logout()
+             .logoutUrl("/logout")
+             .logoutSuccessUrl("/");
+             
+             
+     
+     
+ }
+ 
 
     }
